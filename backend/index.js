@@ -3,6 +3,7 @@ import express from "express";
 import "dotenv/config";
 
 import detectDiseaseRoutes from "./routes/detectDisease.routes.js";
+import diseasePrecautionsRoutes from "./routes/diseasePrecautions.routes.js";
 
 const app = express();
 const port = 3000;
@@ -19,7 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/image", detectDiseaseRoutes);
-// app.use("/api/v1/image", );
+app.use("/api/v1/image", diseasePrecautionsRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
