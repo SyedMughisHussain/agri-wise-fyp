@@ -61,8 +61,25 @@ export default function ImagePickerExample() {
 
   const precautions = async () => {
     try {
-      //  fetch()
-    } catch (error) {}
+      const response = await fetch(
+        "http://192.168.100.14:3000/api/v1/image/diseasePrecautions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            disease: diseaseName,
+          }),
+        }
+      );
+
+      const json = await response.json();
+      setDiseasePrecaution(json.data.replaceAll("*", ""));
+      console.log(json);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
   };
 
   return (
