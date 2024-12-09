@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { Button, Image, View, StyleSheet, Text } from "react-native";
+import { Button, View, StyleSheet, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import { Image } from "expo-image";
+
+// import ImageViewwer
 // import axios from "axios";
 
 export default function ImagePickerExample() {
@@ -13,14 +16,16 @@ export default function ImagePickerExample() {
   // Function to pick an image from the gallery
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ["images"],
       allowsEditing: true,
-      aspect: [4, 3],
       quality: 1,
     });
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      console.log(result);
+    } else {
+      alert("You did not select any image.");
     }
   };
 
@@ -85,7 +90,10 @@ export default function ImagePickerExample() {
   return (
     <View style={styles.container}>
       <Button title="Pick an image from camera roll" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={styles.image} />}
+      {image && <Image
+        source={{ uri: image }}
+        style={styles.image}
+      />}
       <Button title="Get Insights" onPress={getInsights} />
       {diseaseName && <Text style={styles.text}>{diseaseName}</Text>}
       {diseaseName && <Button title="Precaution" onPress={precautions} />}
